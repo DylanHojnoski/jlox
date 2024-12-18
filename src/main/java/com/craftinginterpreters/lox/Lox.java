@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class Lox {
-    private static final Interpreter interpreter = new Interpreter();
+    private static Interpreter interpreter = new Interpreter();
     static boolean hadError = false;
     static boolean hadRuntimeError = false;
 
@@ -22,6 +22,7 @@ public class Lox {
             runFile(args[0]);
         }
         else {
+            interpreter.setRepl(true);
             runPrompt();
         }
     }
@@ -44,6 +45,7 @@ public class Lox {
             if (line == null) break;
             run(line);
             hadError = false;
+            hadRuntimeError = false;
         }
     }
 

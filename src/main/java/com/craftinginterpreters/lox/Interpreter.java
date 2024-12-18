@@ -5,6 +5,7 @@ import java.util.List;
 class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
     private Environment environment = new Environment();
+    private boolean repl = false;
 
     void interpret(List<Stmt> statements) {
         try {
@@ -126,7 +127,10 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
     @Override
     public Void visitExpressionStmt(Stmt.Expression stmt) {
-        evaluate(stmt.expression);
+        Object result = evaluate(stmt.expression);
+        if (repl) {
+            System.out.println(stringify(result));
+        }
         return null;
     }
 
@@ -205,5 +209,9 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         if (left instanceof Double && right instanceof Double) return;
 
         throw new RuntimeError(operator, "Operands must be numbers.");
+    }
+
+    public void setRepl(boolean repl) {
+        this.repl = repl;
     }
 }
