@@ -1,5 +1,6 @@
 package com.craftinginterpreters.lox;
 
+import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
@@ -208,7 +209,7 @@ class Scanner {
         String text = source.substring(start, current);
         TokenType type = keywords.get(text);
         if (type == null) type = IDENTIFIER;
-        addToken(IDENTIFIER);
+        addToken(type);
     }
 
     private boolean isAlpha(char c) {
