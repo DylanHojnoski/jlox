@@ -168,6 +168,66 @@ class Parser {
 
             error(equals, "Invalid assignment target.");
         }
+        else if (match(PLUS_PLUS)) {
+            Token plusPlus = previous();
+
+            if (expr instanceof Expr.Variable) {
+                Token name = ((Expr.Variable)expr).name;
+                Token plus = new Token(PLUS, "+", null, name.line);
+
+                Expr increment = new Expr.Binary(expr, plus, (Expr)new Expr.Literal((double)1));
+
+                return new Expr.Assign(name, increment);
+            }
+            
+            error(plusPlus, "Invalid increment target.");
+        }
+        else if (match(MINUS_MINUS)) {
+            Token minusMinus = previous();
+
+            if (expr instanceof Expr.Variable) {
+                Token name = ((Expr.Variable)expr).name;
+                Token minus = new Token(MINUS, "-", null, name.line);
+
+                Expr decrement = new Expr.Binary(expr, minus, (Expr)new Expr.Literal((double)1));
+
+                return new Expr.Assign(name, decrement);
+            }
+            
+            error(minusMinus, "Invalid decrement target.");
+        }
+        else if (match(PLUS_EQUAL)) {
+            Token equals = previous();
+            Expr value = assignment();
+
+            if (expr instanceof Expr.Variable) {
+                Token name = ((Expr.Variable)expr).name;
+                Token plus = new Token(PLUS, "+", null, name.line);
+
+                Expr increment = new Expr.Binary(expr, plus, value);
+
+                return new Expr.Assign(name, increment);
+            }
+
+            error(equals, "Invalid assignment target.");
+
+        }
+        else if (match(MINUS_EQUAL)) {
+            Token equals = previous();
+            Expr value = assignment();
+
+            if (expr instanceof Expr.Variable) {
+                Token name = ((Expr.Variable)expr).name;
+                Token minus = new Token(MINUS, "-", null, name.line);
+
+                Expr decrement = new Expr.Binary(expr, minus, value);
+
+                return new Expr.Assign(name, decrement);
+            }
+
+            error(equals, "Invalid assignment target.");
+
+        }
 
         return expr;
     }

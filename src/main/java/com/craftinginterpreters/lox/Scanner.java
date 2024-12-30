@@ -69,8 +69,28 @@ class Scanner {
             case '}': addToken(RIGHT_BRACE); break;
             case ',': addToken(COMMA); break;
             case '.': addToken(DOT); break;
-            case '-': addToken(MINUS); break;
-            case '+': addToken(PLUS); break;
+            case '-': 
+                if (match('-')) {
+                    addToken(MINUS_MINUS);
+                }
+                else if (match('=')) {
+                    addToken(MINUS_EQUAL);
+                }
+                else {
+                    addToken(PLUS);
+                }
+                break;
+            case '+': 
+                if (match('+')) {
+                    addToken(PLUS_PLUS);
+                }
+                else if (match('=')) {
+                    addToken(PLUS_EQUAL);
+                }
+                else {
+                    addToken(PLUS);
+                }
+                break;
             case ';': addToken(SEMICOLON); break;
             case '*': addToken(STAR); break;
             case '%': addToken(PERCENT); break;
