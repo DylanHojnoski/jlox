@@ -12,6 +12,20 @@ This project uses Maven for the build system.
 Without any arguments you will go into the REPL.
 To run a file pass in the file as the first argument.
 
+## Addons
+
+* Modulo operator
+    * `%`
+* Block comments
+    * `/* */`
+* Increment
+    * `++`
+    * `+=`
+* Decrement
+    * `--`
+    * `-=`
+* String and Number concatenation
+
 
 
 
